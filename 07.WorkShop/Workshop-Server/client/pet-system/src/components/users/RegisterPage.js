@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import RegisterForm from './RegisterForm'
+import userActions from '../../actions/UserActions'
+import userStore from '../../stores/UserStore'
 
 class RegisterPage extends Component {
     constructor (props){
@@ -14,6 +16,19 @@ class RegisterPage extends Component {
             },
             error:''
         }
+
+        this.handleUserRegistration = this.handleUserRegistration.bind(this)
+        userStore.on(
+            userStore.eventTypes.USER_REGISTERED,
+            this.handleUserRegistration
+        )
+    }
+
+    componentWillUnmount () {
+        userStore.removeListener(
+            userStore.eventTypes.USER_REGISTERED,
+            this.handleUserRegistration
+        )
     }
     handleUserChange (event){
         const target = event.target
@@ -25,9 +40,31 @@ class RegisterPage extends Component {
 
         this.setState({user})
     }
-    handleUserRegistration (event) {
+    handleUserForm (event) {
         event.preventDefault()
-        
+        if(!this.validateUser()){
+            return
+        }
+
+        userActions.register(this.state.user)
+    }
+    handleUserRegistration (data){
+        console.log(data)
+    }
+    validateUser (){
+        const user = this.state.user
+        let formIsValid = true
+        let error = ''
+        if(user.password !== user.confirmPassword){
+            error = 'Invalid Password'
+            formIsValid = false
+        }
+
+        if(error){
+            this.setState({error})
+        }
+
+        return formIsValid
     }
     render () {
         return (
@@ -37,7 +74,7 @@ class RegisterPage extends Component {
                 user={this.state.user}
                 error={this.state.error}
                 onChange={this.handleUserChange.bind(this)}
-                onSave={this.handleUserRegistration.bind(this)}/>
+                onSave={this.handleUserForm.bind(this)}/>
             </div>
         )
     }
