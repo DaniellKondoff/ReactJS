@@ -1,15 +1,19 @@
-import React from 'react'
-import {Route, Switch, Redirect} from 'react-router-dom'
+import React, {Component} from 'react'
+import {Route, Switch} from 'react-router-dom'
 import ListPetsPage from '../Pets/ListPetsPage'
 import LoginPage from '../users/LoginPage'
 import RegisterPage from '../users/RegisterPage'
 
-const Router = () => (
-    <Switch>
-        <Route exact path='/' component={ListPetsPage} />
+class Router extends Component {
+  render () {
+    return (
+      <Switch>
+        <Route path='/' exact component={ListPetsPage} />
         <Route path='/users/register' component={RegisterPage} />
         <Route path='/users/login' component={LoginPage} />
-    </Switch>
-)
+      </Switch>
+    )
+  }
+}
 
 export default Router

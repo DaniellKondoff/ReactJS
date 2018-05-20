@@ -4,14 +4,14 @@ import Router from './components/common/Router'
 import './App.css'
 
 class App extends Component {
-  render() {
+  render () {
     return (
-      <div className="App">
+      <div className='App'>
         <Navbar />
         <Router />
       </div>
-    );
+    )
   }
 }
 
-export default App;
+export default App
