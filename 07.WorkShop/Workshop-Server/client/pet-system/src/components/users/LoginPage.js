@@ -17,15 +17,19 @@ class LoginPage extends Component {
       },
       error: ''
     }
-    this.handleUSerLogin = this.handleUserLogin.bind(this)
+    this.handleUserLogin = this.handleUserLogin.bind(this)
     userStore.on(
       userStore.eventTypes.USER_LOGGED_IN,
       this.handleUserLogin)
   }
   handleUserLogin (data) {
     if (!data.success) {
+      let firstError = data.message
+      if (data.errors) {
+        firstError = Object.keys(data.errors).map(k => data.errors[k])[0]
+      }
       this.setState({
-        error: data.message
+        error: firstError
       })
     } else {
       Auth.authenticateUser(data.token)

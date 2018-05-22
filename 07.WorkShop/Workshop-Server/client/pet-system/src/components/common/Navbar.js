@@ -34,6 +34,7 @@ class Navbar extends Component {
             <span>{this.state.username}</span>
             <Link to='/users/logout'> Logout
             </Link>
+            <Link to='/pets/add'>Create Pet</Link>
           </div>
         ) : (
           <div>

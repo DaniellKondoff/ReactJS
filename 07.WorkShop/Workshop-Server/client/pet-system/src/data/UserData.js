@@ -1,27 +1,13 @@
-const baseURl = 'http://localhost:5000/auth'
+import Data from './Data'
 
-const getOptions = () => ({
-  method: 'POST',
-  mode: 'cors',
-  headers: {
-    'Accept': 'application/json',
-    'Content-Type': 'application/json'
-  }
-})
-const handleJsonRespons = res => res.json()
+const baseUrl = '/auth'
 
 class UserData {
   static register (user) {
-    const options = getOptions()
-    options.body = JSON.stringify(user)
-    return window.fetch(`${baseURl}/signup`, options)
-      .then(handleJsonRespons)
+    return Data.post(`${baseUrl}/signup`, user)
   }
   static login (user) {
-    const options = getOptions()
-    options.body = JSON.stringify(user)
-    return window.fetch(`${baseURl}/login`, options)
-      .then(handleJsonRespons)
+    return Data.post(`${baseUrl}/login`, user)
   }
 }
 
