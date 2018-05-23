@@ -11,14 +11,28 @@ const getOptions = () => ({
 
 const handleJsonRespons = res => res.json()
 
+const appyAuthorizationHeader = (options, authenticated) => {
+  if (authenticated) {
+    options.headers.Authorization = `bearer ${Auth.getToken()}`
+  }
+}
+
 class Data {
   static post (url, data, authenticated) {
     let options = getOptions()
     options.method = 'POST'
     options.body = JSON.stringify(data)
-    if (authenticated) {
-      options.headers.Authorization = `bearer ${Auth.getToken()}`
-    }
+
+    appyAuthorizationHeader(options, authenticated)
+    return window.fetch(`${baseURl}${url}`, options)
+      .then(handleJsonRespons)
+  }
+
+  static get (url, authenticated) {
+    let options = getOptions()
+    options.method = 'GET'
+
+    appyAuthorizationHeader(options, authenticated)
     return window.fetch(`${baseURl}${url}`, options)
       .then(handleJsonRespons)
   }
