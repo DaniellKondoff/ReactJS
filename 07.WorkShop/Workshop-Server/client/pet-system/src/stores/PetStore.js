@@ -15,6 +15,11 @@ class PetStore extends EventEmitter {
       .getAll(page)
       .then(data => this.emit(this.eventTypes.PETS_FETCHED, data))
   }
+  getDetails (id) {
+    PetData
+      .getDetails(id)
+      .then(data => this.emit(this.eventTypes.DETAILS_GOT, data))
+  }
   handleActions (action) {
     switch (action.type) {
       case petAction.types.CREATE_PET: {
@@ -23,6 +28,10 @@ class PetStore extends EventEmitter {
       }
       case petAction.types.All_PETS: {
         this.getAll(action.page)
+        break
+      }
+      case petAction.types.GET_DETAILS: {
+        this.getDetails(action.id)
         break
       }
       default:
@@ -34,7 +43,8 @@ class PetStore extends EventEmitter {
 let petStore = new PetStore()
 petStore.eventTypes = {
   PET_CREATED: 'pet_created',
-  PETS_FETCHED: 'pets_fetched'
+  PETS_FETCHED: 'pets_fetched',
+  DETAILS_GOT: 'details_got'
 }
 dispatcher.register(petStore.handleActions.bind(petStore))
 export default petStore

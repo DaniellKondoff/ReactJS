@@ -9,6 +9,9 @@ class PetData {
     page = page || 1
     return Data.get(`${BaseUrl}/all?page=${page}`)
   }
+  static getDetails (id) {
+    return Data.get(`${BaseUrl}/details/${id}`, true)
+  }
 }
 
 export default PetData

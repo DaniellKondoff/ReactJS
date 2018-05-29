@@ -3,7 +3,8 @@ import dispatcher from '../dispatcher'
 const petActions = {
   types: {
     CREATE_PET: 'CREATE_PET',
-    All_PETS: 'ALL_PETS'
+    All_PETS: 'ALL_PETS',
+    GET_DETAILS: 'GET_DETAILS'
   },
   create (pet) {
     dispatcher.dispatch({
@@ -16,6 +17,12 @@ const petActions = {
     dispatcher.dispatch({
       type: this.types.All_PETS,
       page
+    })
+  },
+  getDetailsById (id) {
+    dispatcher.dispatch({
+      type: this.types.GET_DETAILS,
+      id
     })
   }
 }
