@@ -20,6 +20,11 @@ class PetStore extends EventEmitter {
       .getDetails(id)
       .then(data => this.emit(this.eventTypes.DETAILS_GOT, data))
   }
+  createPost (id, postText) {
+    PetData
+      .createPost(id, postText)
+      .then(data => this.emit(this.eventTypes.CREATE_PET, data))
+  }
   handleActions (action) {
     switch (action.type) {
       case petAction.types.CREATE_PET: {
@@ -34,6 +39,10 @@ class PetStore extends EventEmitter {
         this.getDetails(action.id)
         break
       }
+      case petAction.types.CREATE_POST: {
+        this.createPost(action.id, action.postText)
+        break
+      }
       default:
         break
     }
@@ -44,7 +53,8 @@ let petStore = new PetStore()
 petStore.eventTypes = {
   PET_CREATED: 'pet_created',
   PETS_FETCHED: 'pets_fetched',
-  DETAILS_GOT: 'details_got'
+  DETAILS_GOT: 'details_got',
+  POST_CREATED: 'post_created'
 }
 dispatcher.register(petStore.handleActions.bind(petStore))
 export default petStore

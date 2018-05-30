@@ -22,7 +22,6 @@ class Data {
     let options = getOptions()
     options.method = 'POST'
     options.body = JSON.stringify(data)
-
     appyAuthorizationHeader(options, authenticated)
     return window.fetch(`${baseURl}${url}`, options)
       .then(handleJsonRespons)

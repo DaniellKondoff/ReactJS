@@ -12,6 +12,9 @@ class PetData {
   static getDetails (id) {
     return Data.get(`${BaseUrl}/details/${id}`, true)
   }
+  static createPost (id, postText) {
+    return Data.post(`${BaseUrl}/details/${id}/comments/create`, postText, true)
+  }
 }
 
 export default PetData

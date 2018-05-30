@@ -4,7 +4,8 @@ const petActions = {
   types: {
     CREATE_PET: 'CREATE_PET',
     All_PETS: 'ALL_PETS',
-    GET_DETAILS: 'GET_DETAILS'
+    GET_DETAILS: 'GET_DETAILS',
+    CREATE_POST: 'CREATE_POST'
   },
   create (pet) {
     dispatcher.dispatch({
@@ -23,6 +24,13 @@ const petActions = {
     dispatcher.dispatch({
       type: this.types.GET_DETAILS,
       id
+    })
+  },
+  createPost (id, postText) {
+    dispatcher.dispatch({
+      type: this.types.CREATE_POST,
+      id,
+      postText
     })
   }
 }
