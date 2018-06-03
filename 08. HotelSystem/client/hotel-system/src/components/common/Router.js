@@ -4,6 +4,7 @@ import LoginPage from '../users/LoginPage'
 import RegisterPage from '../users/RegisterPage'
 import LogoutPage from '../users/LogoutPage'
 import PrivateRoute from './PrivateRoute'
+import CreateHotelPage from '../hotels/CreateHotelPage'
 
 class Router extends Component {
   render () {
@@ -12,6 +13,7 @@ class Router extends Component {
         <Route path='/users/register' component={RegisterPage} />
         <Route path='/users/login' component={LoginPage} />
         <PrivateRoute path='/users/logout' component={LogoutPage} />
+        <PrivateRoute path='/hotels/create' component={CreateHotelPage} />
       </Switch>
     )
   }

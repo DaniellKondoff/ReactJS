@@ -11,10 +11,10 @@ class RegisterPage extends Component {
 
     this.state = {
       user: {
-        email: '',
-        password: '',
-        confirmPassword: '',
-        name: ''
+        email: 'test@test.com',
+        password: '1234',
+        confirmPassword: '1234',
+        name: 'test'
       },
       error: ''
     }
