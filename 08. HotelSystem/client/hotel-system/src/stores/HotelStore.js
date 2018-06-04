@@ -9,10 +9,20 @@ class HotelStore extends EventEmitter {
       .create(hotel)
       .then(data => this.emit(this.eventTypes.HOTEL_CREATED, data))
   }
+  getAll (page) {
+    page = page || 1
+    HotelData
+      .getAll(page)
+      .then(data => this.emit(this.eventTypes.ALL_HOTELS_GOT, data))
+  }
   handleAction (action) {
     switch (action.type) {
       case hotelAction.types.CREATE_HOTEL: {
         this.create(action.hotel)
+        break
+      }
+      case hotelAction.types.GET_ALL_HOTELS: {
+        this.getAll(action.page)
         break
       }
       default:
@@ -23,7 +33,8 @@ class HotelStore extends EventEmitter {
 
 let hotelStore = new HotelStore()
 hotelStore.eventTypes = {
-  HOTEL_CREATED: 'hotel_created'
+  HOTEL_CREATED: 'hotel_created',
+  ALL_HOTELS_GOT: 'all_hotels_got'
 }
 dispatcher.register(hotelStore.handleAction.bind(hotelStore))
 export default hotelStore
