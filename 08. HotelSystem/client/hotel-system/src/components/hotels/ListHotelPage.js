@@ -42,9 +42,9 @@ class ListHotelPage extends Component {
 
     page++
 
-    this.setState({
-      page
-    })
+    // this.setState({
+    //   page
+    // })
 
     hotelAction.getAll(page)
 
@@ -58,9 +58,9 @@ class ListHotelPage extends Component {
 
     page--
 
-    this.setState({
-      page
-    })
+    // this.setState({
+    //   page
+    // })
 
     hotelAction.getAll(page)
 
