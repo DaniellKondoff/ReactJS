@@ -20,6 +20,16 @@ class HotelStore extends EventEmitter {
       .getById(id)
       .then(data => this.emit(this.eventTypes.HOTEL_GOT, data))
   }
+  addReview (id, review) {
+    HotelData
+      .addReview(id, review)
+      .then(data => this.emit(this.eventTypes.REVIEW_CREATED, data))
+  }
+  getAllReviews (id) {
+    HotelData
+      .getAllReviews(id)
+      .then(data => this.emit(this.eventTypes.ALL_REVIEWS_GOT, data))
+  }
   handleAction (action) {
     switch (action.type) {
       case hotelAction.types.CREATE_HOTEL: {
@@ -34,6 +44,14 @@ class HotelStore extends EventEmitter {
         this.getById(action.id)
         break
       }
+      case hotelAction.types.ADD_REVIEW: {
+        this.addReview(action.id, action.review)
+        break
+      }
+      case hotelAction.types.GET_ALLREVIEWS: {
+        this.getAllReviews(action.id)
+        break
+      }
       default:
         break
     }
@@ -44,7 +62,9 @@ let hotelStore = new HotelStore()
 hotelStore.eventTypes = {
   HOTEL_CREATED: 'hotel_created',
   ALL_HOTELS_GOT: 'all_hotels_got',
-  HOTEL_GOT: 'hotel_got'
+  HOTEL_GOT: 'hotel_got',
+  REVIEW_CREATED: 'review_created',
+  ALL_REVIEWS_GOT: 'all_reviews_got'
 }
 dispatcher.register(hotelStore.handleAction.bind(hotelStore))
 export default hotelStore

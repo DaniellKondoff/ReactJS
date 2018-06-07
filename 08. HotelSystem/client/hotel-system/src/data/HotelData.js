@@ -13,6 +13,12 @@ class HotelData {
   static getById (id) {
     return Data.get(`${baseUrl}/details/${id}`, true)
   }
+  static addReview(id, review) {
+    return Data.post(`${baseUrl}/details/${id}/reviews/create`, review, true)
+  }
+  static getAllReviews(id) {
+    return Data.get(`${baseUrl}/details/${id}/reviews`, true)
+  }
 }
 
 export default HotelData

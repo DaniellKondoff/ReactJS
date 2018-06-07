@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
 import hotelAction from '../../actions/HotelActions'
 import hotelStore from '../../stores/HotelStore'
+import HotelReviews from '../hotels/HotelReviews'
 
 class HotelDetailsPage extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
 
     let params = this.props.match.params
@@ -18,21 +19,21 @@ class HotelDetailsPage extends Component {
     hotelStore.on(hotelStore.eventTypes.HOTEL_GOT,
       this.handleHotelDetailsFetched)
   }
-  componentDidMount () {
+  componentDidMount() {
     hotelAction.getById(this.state.id)
   }
-  componentWillUnmount () {
+  componentWillUnmount() {
     hotelStore.removeListener(
       hotelStore.eventTypes.HOTEL_GOT,
       this.handleHotelDetailsFetched
     )
   }
-  handleHotelDetailsFetched (data) {
+  handleHotelDetailsFetched(data) {
     this.setState({
       hotel: data
     })
   }
-  render () {
+  render() {
     const hotel = this.state.hotel
     return (
       <div className='hotel-details'>
@@ -41,6 +42,9 @@ class HotelDetailsPage extends Component {
         <h2>{hotel.numberOfRooms} rooms - {hotel.parkingSlots} available parking slots</h2>
         <div>
           <img src={hotel.image} alt={hotel.description} />
+        </div>
+        <div>
+          <HotelReviews hotelId = {this.state.id}/>
         </div>
       </div>
     )
