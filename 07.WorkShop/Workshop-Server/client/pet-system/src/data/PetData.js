@@ -12,8 +12,11 @@ class PetData {
   static getDetails (id) {
     return Data.get(`${BaseUrl}/details/${id}`, true)
   }
-  static createPost (id, postText) {
-    return Data.post(`${BaseUrl}/details/${id}/comments/create`, postText, true)
+  static createPost (id, comment) {
+    return Data.post(`${BaseUrl}/details/${id}/comments/create`, comment, true)
+  }
+  static getPosts (id) {
+    return Data.get(`${BaseUrl}/details/${id}/comments`, true)
   }
 }
 

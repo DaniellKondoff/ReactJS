@@ -20,10 +20,15 @@ class PetStore extends EventEmitter {
       .getDetails(id)
       .then(data => this.emit(this.eventTypes.DETAILS_GOT, data))
   }
-  createPost (id, postText) {
+  createPost (id, comment) {
     PetData
-      .createPost(id, postText)
+      .createPost(id, comment)
       .then(data => this.emit(this.eventTypes.CREATE_PET, data))
+  }
+  getPosts(id) {
+    PetData
+      .getPosts(id)
+      .then(data => this.emit(this.eventTypes.POSTS_GOT, data))
   }
   handleActions (action) {
     switch (action.type) {
@@ -40,7 +45,11 @@ class PetStore extends EventEmitter {
         break
       }
       case petAction.types.CREATE_POST: {
-        this.createPost(action.id, action.postText)
+        this.createPost(action.id, action.comment)
+        break
+      }
+      case petAction.types.GET_POSTS: {
+        this.getPosts(action.id)
         break
       }
       default:
@@ -54,7 +63,8 @@ petStore.eventTypes = {
   PET_CREATED: 'pet_created',
   PETS_FETCHED: 'pets_fetched',
   DETAILS_GOT: 'details_got',
-  POST_CREATED: 'post_created'
+  POST_CREATED: 'post_created',
+  POSTS_GOT: 'posts_got'
 }
 dispatcher.register(petStore.handleActions.bind(petStore))
 export default petStore

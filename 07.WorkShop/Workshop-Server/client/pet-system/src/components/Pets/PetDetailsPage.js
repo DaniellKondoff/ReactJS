@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import petAction from '../../actions/PetActions'
 import petStore from '../../stores/PetStore'
-import PetsCommentsForm from '../Pets/PetsCommentForm'
+import PetCommentPage from '../Pets/PetCommentPage'
 
 class PetDetailsPage extends Component {
   constructor (props) {
@@ -12,8 +12,7 @@ class PetDetailsPage extends Component {
 
     this.state = {
       id: id,
-      pet: {},
-      petComment: ''
+      pet: {}
     }
 
     this.handlePetDetailsFteched = this.handlePetDetailsFteched.bind(this)
@@ -34,21 +33,6 @@ class PetDetailsPage extends Component {
     this.setState({
       pet: data
     })
-    console.log(this.state.pet)
-  }
-  handleChange (event) {
-    const target = event.target
-    const value = target.value
-    let petComment = this.state.petComment
-    petComment = value
-    this.setState({
-      petComment
-    })
-  }
-  handlePetCommentPost (event) {
-    event.preventDefault()
-    // validate
-    petAction.createPost(this.state.pet.id, this.state.petComment)
   }
   render () {
     const pet = this.state.pet
@@ -63,12 +47,7 @@ class PetDetailsPage extends Component {
             <img src={pet.image} width='250px' />
           </li>
         </ul>
-        <br />
-        <PetsCommentsForm
-          value={this.state.petCommentValue}
-          onChange={this.handleChange.bind(this)}
-          onPost={this.handlePetCommentPost.bind(this)}
-        />
+        <PetCommentPage petId={this.state.id}/>
       </div>
     )
   }

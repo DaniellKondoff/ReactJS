@@ -1,21 +1,21 @@
 import React, { Component } from 'react'
+import Input from '../common/Input'
 
-class PetsCommentForm extends Component {
-  render () {
-    return (
-      <div>
-        <form onSubmit={this.handleSubmit}>
+
+const PetsCommentForm = (props) => (
+        <form>
           <label>
           Enter a comment:
           </label>
           <br />
-          <textarea name='petComment' type='textarea' value={this.props.petCommentValue} onChange={this.props.onChange} />
+          <Input
+            name='message'
+            placeholder='Comment'
+            value={props.message.message}
+            onChange={props.onChange} />
           <br />
-          <input type='submit' onClick={this.props.onPost} />
+          <input type='submit' onClick={props.onPost} />
         </form>
-      </div>
-    )
-  }
-}
+)
 
 export default PetsCommentForm

@@ -5,7 +5,8 @@ const petActions = {
     CREATE_PET: 'CREATE_PET',
     All_PETS: 'ALL_PETS',
     GET_DETAILS: 'GET_DETAILS',
-    CREATE_POST: 'CREATE_POST'
+    CREATE_POST: 'CREATE_POST',
+    GET_POSTS: 'GET_POSTS'
   },
   create (pet) {
     dispatcher.dispatch({
@@ -26,11 +27,17 @@ const petActions = {
       id
     })
   },
-  createPost (id, postText) {
+  createPost (id, comment) {
     dispatcher.dispatch({
       type: this.types.CREATE_POST,
       id,
-      postText
+      comment
+    })
+  },
+  getAllPosts(id) {
+    dispatcher.dispatch({
+      type: this.types.GET_POSTS,
+      id
     })
   }
 }
